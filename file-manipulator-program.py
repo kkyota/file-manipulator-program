@@ -13,14 +13,14 @@ def copy(inputpath, outputpath):
         with open(outputpath, 'wb') as target_file:
             target_file.write(source_file.read())
 
-def duplicate_contents(inputpath, n):
+def duplicate_contents(inputpath, outputpath, n):
     with open(inputpath, 'r') as file:
         content = file.read()
     duplicated_content = content * n
-    with open(inputpath, 'w') as file:
+    with open(outputpath, 'w') as file:
         file.write(duplicated_content)
 
-def replace_string(inputpath,needle, newstring):
+def replace_string(inputpath, needle, newstring):
     with open(inputpath, 'r') as file:
         content = file.read()
     replaced_content = content.replace(needle, newstring)
@@ -28,8 +28,8 @@ def replace_string(inputpath,needle, newstring):
         file.write(replaced_content)
 
 def validate_file_path(file_path):
-    if not os.file.exists(file.path):
-        print(f"エラー: {file.path} は存在しません")
+    if not os.path.exists(file_path):
+        print(f"エラー: {file_path} は存在しません")
         sys.exit(1)
 
 if __name__ == '__main__':
@@ -54,11 +54,12 @@ if __name__ == '__main__':
         outputpath = sys.argv[3]
         copy(inputpath, outputpath)
     elif command == 'duplicate-contents':
-        if len(sys.argv) < 4:
+        if len(sys.argv) < 5:
             print("エラー: 複製回数が指定されていません")
             sys.exit(1)
         n = int(sys.argv[3])
-        duplicate_contents(inputpath, n)
+        outputpath = sys.argv[4]
+        duplicate_contents(inputpath, outputpath, n)
     elif command == 'replace_string':
         if len(sys.argv) < 5:
             print("エラー: 置換文字列が指定されていません")
